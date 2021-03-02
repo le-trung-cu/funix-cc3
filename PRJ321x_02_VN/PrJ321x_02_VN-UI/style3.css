@@ -1,0 +1,130 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root{
+  --primary-color-light-1: #fff;
+  --primary-color-light-2: #e8e8e8;
+  --primary-color-light-3: #fab335;
+  --primary-color-dark-1: #ff9900;
+  --primary-color-dark-2: #393939;
+
+  --secondary-color-1: #000;
+  --secondary-color-2: #929191;
+
+  --grid-grew: 8px;
+}
+
+ul,ol{
+  list-style: none;
+}
+a{
+  text-decoration: none;
+}
+img{
+  width: 100%;
+  height: auto;
+}
+body{
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.icon{
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.head__logo{
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.head__main, .head__sub{
+  display: block;
+}
+.head__main > span{
+  color: var(--primary-color-dark-1);
+}
+.head__sub{
+  color: var(--secondary-color-2);
+  font-weight: 300;
+  font-size: 10px;
+}
+
+.head__right{
+  align-self: flex-end;
+}
+.head__account{
+  text-align: end;
+}
+.head__shopping{
+  display: flex;
+}
+.head__shopping .currencies{
+  display: flex;
+}
+
+.navigation__nav{
+  display: none;
+}
+
+/* show hidden menu */
+input#toggle-navigation:checked+.navigation__nav{
+  display: block;
+}
+/* search */
+.navigation_from {
+  margin: 10px 20px;
+  background-color: var(--primary-color-dark-1);
+  padding: 8px;
+  border-radius: 3px;
+}
+.navigation_from .search{
+  display: flex;
+  align-items: center;
+}
+.navigation_from input{
+  flex: 1;
+  height: 30px;
+  border: none;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.navigation_from .search__icon{
+  background-color: var(--primary-color-light-3);
+  padding: 5px;
+  height: 30px;
+  width: 30px;
+  display: block;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3pxs;
+}
+
+.product img{
+}
+
+.add-to-cart{
+  display: inline-block;
+  background-color: var(--primary-color-light-3);
+  padding: 3px 12px;
+  margin: 5px;
+  /* background-image: linear-gradient(45deg,  var(--primary-color-dark-1) 60%, var(--primary-color-light-3)); */
+}
+
+.row{
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(-1 * var(--grid-grew));
+}
+.col-sm-2{
+  width: 50%;
+  padding: var(--grid-grew);
+}
