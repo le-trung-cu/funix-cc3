@@ -26,7 +26,7 @@ public class App {
 
         System.out.println("7.  DFS_Graph");
 
-        System.out.println("8.  Dijkstra");
+        System.out.println("8.  Dijkstra from A -> E");
 
         System.out.println("Exit:");
 
@@ -66,17 +66,15 @@ public class App {
                 case 7:
                     try {
                         graph.setWeights("graph-weighted.txt");
-                        System.out.print("Stack at K:");
+                        System.out.print("Start at (0 - 6): ");
                         graph.DFS(scanner.nextInt());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     break;
                 case 8:
-                    System.out.print("Path from p -> q: ");
-                    int p = scanner.nextInt();
-                    int q = scanner.nextInt();
-                    graph.dijkstra(p, q);
+                    // Dijkstra from A (0) -> E(4)
+                    graph.dijkstra(0, 4);
                     break;
                 default:
                     break;

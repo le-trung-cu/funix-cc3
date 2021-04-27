@@ -32,6 +32,7 @@ String username = session.getAttribute("username") != null ? (String) session.ge
 </div>
 
 <script>
+  $("s").text('sss')
     var app = new Vue({
       el: '#form-login',
       data() {

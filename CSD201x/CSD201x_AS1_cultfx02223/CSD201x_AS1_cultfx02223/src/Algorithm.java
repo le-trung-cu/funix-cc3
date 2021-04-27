@@ -1,11 +1,11 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Algorithm {
@@ -74,6 +74,18 @@ public class Algorithm {
     return strB.toString();
   }
 
+  public static String joinArray(String delimiter, List<Integer> a) {
+    StringBuffer strB = new StringBuffer();
+
+    for (int i = 0; i < a.size(); i++) {
+      strB.append(a.get(i));
+      if (i < a.size() - 1) {
+        strB.append(delimiter);
+      }
+    }
+    return strB.toString();
+  }
+
   private static void printTimeRun(long timeRun) {
     System.out.println("time run: " + timeRun);
   }
@@ -91,7 +103,7 @@ public class Algorithm {
       }
 
       long timeRun = 0;
-      long startTime = System.currentTimeMillis();
+      long startTime = System.nanoTime();
       boolean sorted;
       for (int k = 0; k < a.length; k++) {
         // flag check if after loop no any element in a swap
@@ -105,13 +117,13 @@ public class Algorithm {
             a[i - 1] = temp;
           }
         }
-        long endTime = System.currentTimeMillis();
+        long endTime = System.nanoTime();
         timeRun += (endTime - startTime);
 
         writer.write(joinArray(", ", a));
         writer.write(System.lineSeparator());
 
-        startTime = System.currentTimeMillis();
+        startTime = System.nanoTime();
 
         if (sorted) {
           printTimeRun(timeRun);
@@ -137,7 +149,7 @@ public class Algorithm {
       long timeRun = 0;
 
       for (int i = 0; i < a.length - 1; i++) {
-        long startRun = System.currentTimeMillis();
+        long startRun = System.nanoTime();
 
         int min = i;
         for (int j = i + 1; j < a.length; j++) {
@@ -148,7 +160,7 @@ public class Algorithm {
         float temp = a[i];
         a[i] = a[min];
         a[min] = temp;
-        long endStart = System.currentTimeMillis();
+        long endStart = System.nanoTime();
 
         timeRun += endStart - startRun;
 
@@ -177,7 +189,7 @@ public class Algorithm {
       long timeRun = 0;
 
       for (int i = 1; i < a.length; i++) {
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
         int k = i - 1;
         float temp = a[i];
         while (k >= 0 && temp < a[k]) {
@@ -185,7 +197,7 @@ public class Algorithm {
           k--;
         }
         a[k + 1] = temp;
-        long endTime = System.currentTimeMillis();
+        long endTime = System.nanoTime();
         timeRun += (endTime - startTime);
 
         writer.write(joinArray(", ", a));
@@ -198,14 +210,22 @@ public class Algorithm {
 
   }
 
-  // 6. Serach by Linear Search algorith: return index
-  public static int search(float a[], float value) {
+  // 6. Serach by Linear Search algorith: return array index
+  public static List<Integer> search(float a[], float value) {
+    List<Integer> indexs = new ArrayList<>();
     for (int i = 0; i < a.length; i++) {
-      if (a[i] == value) {
-        return i;
+      if (a[i] > value) {
+        indexs.add(i);
       }
     }
-    return -1;
+
+    // Write in Output4.txt
+    try (FileWriter writer = new FileWriter(LINEAR_SEARCH_OUT)) {
+      writer.write(joinArray(", ", indexs));
+    } catch (Exception e) {
+      //TODO: handle exception
+    }
+    return indexs;
   }
 
   // 7. Search by binary Search algorith

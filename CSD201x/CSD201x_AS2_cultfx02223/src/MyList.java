@@ -15,6 +15,17 @@ public class MyList<T> implements Iterable<T>, IList<T> {
     return size;
   }
 
+  public T get(int index) throws IndexOutOfBoundsException{
+    if(index < 0 || index >= size){
+      throw new IndexOutOfBoundsException("IndexOutOfBoundsException index = " + index);
+    }
+    Node<T> current = head;
+    for (int i = 0; i < index; i++) {
+      current = current.next;
+    }
+    return current.info;
+  }
+
   // Constructor method
   public MyList(Node<T> head, Node<T> tail) {
     this.head = head;

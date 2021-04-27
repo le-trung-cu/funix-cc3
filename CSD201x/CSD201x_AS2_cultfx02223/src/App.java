@@ -1,7 +1,4 @@
-
-
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -9,9 +6,9 @@ import org.apache.commons.io.output.TeeOutputStream;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        String log = "log.txt";
+        String fileLog = "console_output.txt";
         try {
-            FileOutputStream fos = new FileOutputStream(log);
+            FileOutputStream fos = new FileOutputStream(fileLog);
             Runtime.getRuntime().addShutdownHook( new Thread(){
                 @Override
                 public void run() {
@@ -75,7 +72,13 @@ public class App {
                         service.sortByCode(list);
                         break;
                     case 8:
-                        service.convertBinary(5);
+                        if(!list.isEmpty()){
+                            Product first = list.get(0);
+                            System.out.println("Quantity = " + first.getQuantity() + " => " + CoverToBinary.cover(first.getQuantity()));
+                        }else{
+                            System.out.println("Is empty!");
+                        }
+                        
                         break;
                     case 9:
                         service.getAllItemsFromFile(fileName, stack);

@@ -12,7 +12,7 @@ public class Graph {
   int n;
 
   static int INF = 9999; // 9999 is considered as infinite value
-
+  String s1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   char[] b;
 
   public Graph() {
@@ -80,38 +80,68 @@ public class Graph {
   }
 
   // shortest path from vertex p to vertex q
-  void dijkstra(boolean[] visited, int[] dist, int[] path, int start, int end, boolean[] stopDisplay) {
+  // return 1 if find 1 shortest path, else return -1
+  int dijkstra(boolean[] visited, int[] dist, int[] path, int start, int end, boolean[] stopDisplay) {
     PriorityQueue<GraphEdge> pq = new PriorityQueue<>();
-
     pq.add(new GraphEdge(start, start, 0));
+
+    dist[start] = 0;
+    visited[start] = true;
+    String pathStr = "";
 
     while (!pq.isEmpty()) {
       GraphEdge current = pq.poll();
+      
+      pathStr += this.s1.charAt(current.end);
+      
       visited[current.end] = true;
+
+      System.out.println(pathStr);
+      System.err.println(Arrays.toString(dist));
 
       ArrayList<Integer> neighbors = getNeighbors(current.end);
       for (Integer neighbor : neighbors) {
-        if (!visited[neighbor]) {
-
-          int x = getEdge(current.end, neighbor);
+        int x = getEdge(current.end, neighbor);
+        if (dist[neighbor] > x) {
           pq.add(new GraphEdge(current.end, neighbor, x));
           int newDist = dist[current.end] + x;
           if (newDist < dist[neighbor]) {
             dist[neighbor] = newDist;
-
             path[neighbor] = current.end;
-
           }
         }
       }
+      // if current is end node, this mean find 1 shortest path, then return
+      if ((int) current.end == end) {
+        return 1;
+      }
     }
+    return -1;
   }
 
   // hien thi duong di
   void pathDijkstra(int[] dist, int[] path, int p, int q) {
-    //
+    int preQ = q;
+    MyStack<Integer> mStack = new MyStack<>();
+
+    while (preQ != p) {
+      mStack.push(preQ);
+      preQ = path[preQ];
+    }
+    mStack.push(p);
+
+    // print path
+    System.out.println("Path: ");
+    while (!mStack.isEmpty()) {
+      int x = mStack.pop();
+      char positionChar = this.s1.charAt(x);
+      System.out.print(positionChar + " ");
+    }
+
+    System.out.println();
   }
 
+  // dijkstra from p to q
   public void dijkstra(int p, int q) {
     int[] dist = new int[n];
     boolean[] visited = new boolean[n];
@@ -122,21 +152,22 @@ public class Graph {
       dist[i] = INF;
     }
 
-    dist[p] = 0;
-    visited[p] = true;
     dijkstra(visited, dist, path, p, q, stopDisplay);
+    System.out.println("The length of shortest path from A to E is " + dist[q]);
 
+    pathDijkstra(dist, path, p, q);
     System.out.println(Arrays.toString(path));
     System.out.println(Arrays.toString(dist));
   }
 
+  // run DFS start at position k
   public void DFS(int k) {
     boolean[] visited = new boolean[n];
     int visitedCount = 0;
     MyStack<Integer> stack = new MyStack<>();
     stack.push(k);
-    String s1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+    // if stack not empty and not visited all node yet
     while (!stack.isEmpty() && visitedCount < n) {
       Integer current = stack.pop();
 
